@@ -1,0 +1,7 @@
+db/*.sqlite3
+.DS_Store
+node_modules
+session-store.db
+.env
+lib/users.sql
+scratch.js

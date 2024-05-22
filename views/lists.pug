@@ -1,0 +1,19 @@
+extends layout
+
+block main
+  if todoLists === undefined || todoLists.length === 0
+    if signedIn
+      p#no_list You don't have any todo lists. Why not create one?
+  else
+    ul#lists
+      each todoList, todoIndex in todoLists
+        - const todoInfo = todosInfo[todoIndex];
+        li(class=todoInfo.isDone ? "done" : "")
+          a(href=`/lists/${todoList.id}`)
+            h2= todoList.title
+            p #{todoInfo.countDoneTodos} / #{todoInfo.countAllTodos}
+
+block headerLinks
+  if signedIn
+    .actions
+      a.add(href="/lists/new") New List
