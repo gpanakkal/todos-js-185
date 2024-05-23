@@ -1,19 +1,18 @@
 // #region IMPORTS
-require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const flash = require('express-flash');
 const session = require('express-session');
 const { body, validationResult } = require('express-validator');
 const lokiStore = require('connect-loki');
+
+const config = require('./lib/config');
 const Persistence = require('./lib/pg-persistence');
 const catchError = require('./lib/catch-error');
 // #endregion
 
 // #region INIT
 const app = express();
-const host = 'localhost';
-const port = 3000;
 const LokiStore = lokiStore(session);
 
 app.set('views', './views');
@@ -34,7 +33,7 @@ app.use(session({
   name: 'launch-school-todos-session-id',
   resave: false,
   saveUninitialized: true,
-  secret: 'this is not very secure',
+  secret: config.SECRET,
   store: new LokiStore({}),
 }));
 
@@ -405,6 +404,6 @@ app.use((err, req, res) => {
 });
 
 // Listener
-app.listen(port, host, () => {
-  console.log(`Todos is listening on port ${port} of ${host}!`);
+app.listen(config.PORT, config.HOST, () => {
+  console.log(`Todos is listening on port ${config.PORT} of ${config.HOST}!`);
 });

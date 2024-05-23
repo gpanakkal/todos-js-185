@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "start": "npx nodemon todos.js"
+    "start": "npx nodemon todos.js",
+    "heroku-postbuild": "npm install --production"
   },
   "author": "Gautam Panakkal",
   "license": "ISC",
@@ -29,6 +30,10 @@
     "express-validator": "^6.2.0",
     "morgan": "^1.9.1",
     "pg": "^8.11.5",
-    "pug": "^2.0.4"
+    "pug": "^3.0.0"
+  },
+  "engines": {
+    "node": "21.7.0",
+    "npm": "10.5.2"
   }
 }
