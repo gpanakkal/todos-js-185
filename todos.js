@@ -54,27 +54,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Async validation using res.locals.store
-const validateData = async (req, res, next) => {
-  const { store } = res.locals;
-
-  await Promise.all([
-    body('todoTitle')
-      .trim()
-      .isLength({ min: 1 })
-      .withMessage('The todo title is required.')
-      .isLength({ max: 100 })
-      .withMessage('Todo title must be between 1 and 100 characters.')
-      .custom((title) => !store.existsTodoListTitle(title)),
-  ]);
-
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    errors.array().forEach((error) => req.flash('error', error.msg));
-  } else {
-    next();
-  }
-};
 // #endregion
 
 // #region HELPERS
